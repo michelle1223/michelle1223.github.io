@@ -1,8 +1,8 @@
 # Site Info
-title: ratsgo's blog
-tagline: 'for textmining'
-description: 'blog for textmining'
-url: http://ratsgo.github.io
+title: Michelle's Blog
+tagline: 'for some various ideas'
+description: 'blog for data science, music review, and daily ideas.'
+url: http://michelle1223.github.io
 logo: '/public/logo.png'
 encoding: utf-8
 
@@ -15,7 +15,7 @@ kramdown:
 excerpt_separator: "<!-- more -->"
 sass:
   style: compressed
-  sass_dir: _scss    
+  sass_dir: _scss
 paginate: 5
 paginate_path: '/blog/page:num'
 permalink: pretty
@@ -23,26 +23,27 @@ version: 1.0.0
 
 # About/contact
 author:
-  name: ratsgo
-  description: <strong>보물찾기</strong> 그리운 마을, 그 먼 바다에 이르기까지
-  gravatar: 0a638fc7996869b1b67fb90ccf77dcfe # md5 hash of your email address
+  name: Michelle Min
+  description: Just loving the things I love, as always!
+  gravatar: d7fe7ba42d1d13c7dfa1b3f447eb4f12 # md5 hash of your email address
   contact:
-    linkedin:  https://www.linkedin.com/in/gichanglee/
-    github:    https://github.com/ratsgo
-    facebook:  https://www.facebook.com/gichanglee.84
+    #linkedin:  https://www.linkedin.com/in/gichanglee/
+    github:    https://github.com/michelle1223
+    instagram: https://www.instagram.com/4min.ofyourday
+    #facebook:  https://www.facebook.com/gichanglee.84
     #twitter:  <hide>
     #weibo:    <hide>
-    email:     mailto:gichang_lee@korea.ac.kr
+    email:     mailto:acoustic1223@gmail.com
 
 # Navigation (2nd level links supported)
 nav:
-  Home:           
+  Home:
     - '/'
-  Contents:           
+  Contents:
     - '/blog/'
     - { Categories: '/blog/categories/' }
     - { Tags: '/blog/tags/' }
-  About:          
+  About:
     - '/about/'
 
 # Where are tags and categories displayed
@@ -50,11 +51,10 @@ tag_page: '/blog/tags/'
 category_page: '/blog/categories/'
 
 hero:
-  image: https://ratsgo.github.io/public/img/picture.JPG
-  caption: Original Artwork &copy; Pablo Picasso. Girl before a Mirror. Boisgeloup, March 1932. Oil on canvas
+  image: https://michelle1223.github.io/public/img/picture.JPG
+  caption: Photography by Michelle Min. May, 2019
 
 # Puglins
 mathjax: true # whether support mathjax
-google_analytics_token: 'UA-93172815-1' # leave blank if you don't want google analytics
-disqus_short_name: 'ratsgo-github-io' # leave blank if you don't want disqus
-
+google_analytics_token: '' # leave blank if you don't want google analytics
+disqus_short_name: 'michelle1223' # leave blank if you don't want disqus
