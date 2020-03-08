@@ -3,7 +3,6 @@ layout: page
 title: About
 ---
 
-<div style="font-size: 0.9rem; font-weight:300; line-height: 1.6rem;">
 
 <p class="message" style="font-size: 0.9rem; font-weight: 700">
   About data science, music, and some other daily ideas.
@@ -25,5 +24,3 @@ These are the categories of this blog's posts:
 If you're here via my music recommendation Instagram account, please check the 'Music Review' category.
 
 Thanks for reading!
-
-</div>
