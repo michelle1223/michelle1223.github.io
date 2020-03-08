@@ -23,8 +23,8 @@ Reviewing 'This is music too', the new album by Ohashi Trio.
 
 
 **음원 사이트에서 바로 듣기**
-1. apple music: https://music.apple.com/kr/album/this-is-music-too/1495935434
-2. youtube music: https://www.youtube.com/playlist?list=OLAK5uy_khfpbcXOERMXzrvfPyjGwT7sQueArXe9s  
+1. Apple Music: [Apple Music link](https://music.apple.com/kr/album/this-is-music-too/1495935434)
+2. YouTube Music: [YouTube Music link](https://www.youtube.com/playlist?list=OLAK5uy_khfpbcXOERMXzrvfPyjGwT7sQueArXe9s)  
 
 멜론, 벅스 등 일부 한국 음원 사이트에서는 아직 제공되지 않습니다. 유튜브 등을 통해서라도 꼭 들어보시길 바랍니다:)
 
