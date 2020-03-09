@@ -26,13 +26,12 @@ A recommendation of some chill songs, made in a 60-minute playlist. Collected by
 8. lost spaces - fake.guitars  
 9. Easy Life - Ojpl  
 10. Hippo Campus - monsoon  
-11. The Japanese House - Something Has to Change  
-12. No Rome - Narcissist (feat. The 1975)  
-13. Mahalia - Square 1  
-14. UMI - Love Affair  
-15. Daniel Caesar, Brandy - LOVE AGAIN  
-16. Lucky Daye - Buying Time (from the COLORS show)  
-17. Hippo Campus - Bambi  
-18. keshi - Summer  
-19. Ohashi Trio - Sunset Serenade  
-20. Norah Jones - Don't Know Why (Live in NYC)  
+11. No Rome - Narcissist (feat. The 1975)  
+12. Mahalia - Square 1  
+13. UMI - Love Affair  
+14. Daniel Caesar, Brandy - LOVE AGAIN  
+15. Lucky Daye - Buying Time (from the COLORS show)  
+16. Hippo Campus - Bambi  
+17. keshi - Summer  
+18. Ohashi Trio - Sunset Serenade  
+19. Norah Jones - Don't Know Why (Live in NYC)  
