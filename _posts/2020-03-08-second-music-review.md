@@ -14,7 +14,7 @@ A recommendation of some chill songs, made in a 60-minute playlist. Collected by
 [Apple Music Link](https://music.apple.com/kr/playlist/chill-mix-by-michelle-min/pl.u-06oxv0zC7G1r3N)  
 [YouTube Music Link](https://music.youtube.com/playlist?list=PL11vlqtt87LCe1WvFFSEhd4JqqI2o3a1k)  
 [Melon Link](http://kko.to/z5PJmtw0o)  
-기타 음원 사이트 링크를 더 원하시면 댓글 달아주세요. 하지만...여러 사이트에서 만들기 귀찮기 때문에 다는 못해드립니다.  
+* 기타 음원 사이트 링크를 더 원하시면 댓글 달아주세요. 하지만...여러 사이트에서 만들기 귀찮기 때문에 다는 못해드립니다.  
 
 **Chill Mix: Full Playlist**  
 
