@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'One World Together At Home' Playlist
+title: One World, Together At Home
 category: Music Review
 tag: Music
 ---
