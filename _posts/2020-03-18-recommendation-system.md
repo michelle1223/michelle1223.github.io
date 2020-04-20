@@ -22,11 +22,26 @@ tag: python
 
 1. Import Dataset
 
-'''python
+```python
 import numpy as np
 import pandas as pd
-import
-'''
+import lenskit.datasets as ds
+
+!git clone https://github.com/crash-course-ai/lab4-recommender-systems.git
+data = ds.MovieLens('lab4-recommender-systems/')
+print("Successfully installed dataset.")
+```
+
+이렇게 불러온 데이터셋은 movies, ratings, tags라는 3개의 csv 파일로 이루어져 있다. movies 데이터는 각 영화의 제목과 장르 column이 있고, ratings 데이터는 user / item / rating / timestamp 4개의 column으로 이루어져 있다. tags 데이터는 유저들이 각 영화에 붙인 tag들이 column으로 정리되어 있는데, 아래에서는 tags 데이터를 사용하지 않지만 자연어처리를 이용하여 추천시스템 구축에 유의미하게 사용될 수 있다. 이러한 방법론은 다음 포스트에서 다룰 것이다.  
+
+```python
+movie_data = data.ratings.join(data.movies['genres'], on='item')
+movie_data = movie_data.join(data.movies['title'], on='item')
+movie_data.head()
+```
+
+2. 전처리  
+
 
 **미완**  
 

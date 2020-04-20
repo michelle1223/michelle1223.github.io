@@ -11,11 +11,72 @@ Sentiment Analysis, 한국어로 '감성 분석'은 어떤 텍스트 데이터�
 # 2. Coding  
 아래 사용된 데이터는 한국 영화 10편(리틀 포레스트, 아가씨, 살인의 추억, 너의 결혼식, 장화 홍련, 부산행, 써니, 초능력자, 신과 함께, 마당을 나온 암탉)에 대한 네이버 영화 리뷰를 1000개씩 크롤링해서 1만 개의 row를 지닌 데이터프레임 형식으로 만든 것이다. 크롤링과 데이터 전처리에 관한 코드는 [Data Science]라는 카테고리로 따로 포스팅할 예정이니 이에 대한 것은 그 게시물을 참고하길 바란다.  
 
-'''python
+```python
 import numpy as np
 import pandas as pd
 import re
 import konlpy
-'''
+
+# 크롤링한 영화 리뷰들을 하나의 dataframe으로 합치고 불필요한 column 제거.
+# 각각의 영화 리뷰 dataframe들 10개의 이름은 영어 제목대로 만듦 (과정 생략)
+movie = pd.concat([littleforest, handmaiden, murder, yourwedding, twosisters, busan, sunny, haunters, god, hen])
+movie = movie.drop('Unnamed: 0', axis=1)
+movie
+```
+
+## Tokenization  
+```python
+from ckonlpy.tag import Twitter
+twitter = Twitter()
+```
+여기서 토큰화를 할 때는, stopwords라는 library를 만들어서 처리해줄 불용어들을 지정한다. 사람들이 많이 쓰는 불용어 사전을 인터넷에서 검색해서 사용하는 방법도 있지만, 일단은 간단한 불용어 사전을 만들어서 stopwords로 지정해주었다.  
+
+```python
+stopwords = ['근데','의','가','이','은','들','는','좀','걍','과','도','를','으로','자','에','와','한','하다','관람객', 'ㅋ', 'ㅎ', 'ㅠ', '다', '더', '싶다', '지금', '하지만', '네', '요', '다가', '해서']
+```
+stopwords에 '관람객'이 들어간 이유는, 네이버 영화의 댓글 리뷰는 리뷰 작성자가 관람객인지 아닌지 여부를 따로 보여주기 때문에 크롤링을 할 때 관람객이 작성한 리뷰의 경우 '관람객'이라는 단어가 리뷰 맨 앞에 항상 들어갔기 때문이다. 이 점을 이용해서 관람객의 리뷰에 가중치를 더 주고 분석에 중요한 리뷰와 중요하지 않은 리뷰를 구분할 수도 있겠지만, 이번 프로젝트에서는 이러한 과정을 생략하였다.  
+
+```python
+token = []
+for sentence in movie['review']:
+    temp_X = []
+    temp_X = twitter.morphs(sentence, stem=True) # 토큰화
+    temp_X = [word for word in temp_X if not word in stopwords] # 불용어 제거
+    token.append(temp_X)
+movie['token'] = token
+```
+이와 같이 토큰화를 끝낸 후 movie 데이터에 token column을 붙여준다.  
+
+## Retrieve train data  
+추후 설명할 모델링 과정이 모두 끝난 후 정확도를 산출해보니, 앞서 크롤링한 데이터만을 사용하여 모델을 구축할 경우, 만족스럽지 않은 정확도(약 65%)가 산출됨이 확인되었다. 이는 모델 학습에 쓰이는 훈련 데이터가 부족하기 때문으로 결론을 내려서, 외부에서 train data로 사용할 수 있는 한국어 영화 리뷰 데이터를 불러와서 모델을 학습시키는 데 사용하였다.  
+
+```python
+import urlib.request
+urllib.request.urlretrieve("https://raw.githubusercontent.com/e9t/nsmc/master/ratings_train.txt", filename="ratings_train.txt")
+urllib.request.urlretrieve("https://raw.githubusercontent.com/e9t/nsmc/master/ratings_test.txt", filename="ratings_test.txt")
+train_data = pd.read_csv('ratings_train.txt',sep='\t',error_bad_lines=False)
+```
+이렇게 불러온 훈련 데이터에서 null 값이 있는지 확인하고, 전처리 및 토큰화를 거친 후 X_train라고 저장하여 사용하였다. 이 데이터의 경우 각 문장의 긍정/부정 여부가 label로 표시되어 있는데, 이 label column은 이후 y_train으로 저장하여 사용하였다. 그리고 위에서 크롤링하여 모은 데이터는 X_test로 저장하여 쓰였다.   
+
+## 정수 인코딩  
+토큰화된 데이터를 모델에 돌리기 위해서는 keras에서 제공하는 Tokenizer, pad_sequences 함수를 이용하여 정수로 이루어진 벡터로 바꿔줘야 한다. 이 과정을 정수 인코딩이라고 한다.  
+
+```python
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+max_words = 35000
+tokenizer = Tokenizer(num_words=max_words) # 상위 35,000개의 단어만 보존
+tokenizer.fit_on_texts(X_train)
+X_train = tokenizer.texts_to_sequences(X_train)
+X_test = tokenizer.texts_to_sequences(X_test)
+
+max_len = 30
+# 전체 데이터의 길이는 30으로 맞춘다.
+X_train = pad_sequences(X_train, maxlen=max_len)
+X_test = pad_sequences(X_test, maxlen=max_len)
+y_train = np.array(train_data['label'])
+```
+
 
 **미완**  
