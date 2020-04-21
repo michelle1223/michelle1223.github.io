@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Recommendation System Part 1 test upload
+title: Recommendation System (Collaborative Filtering) Practice
 category: Data Science
 tag: python
 ---
@@ -34,44 +34,6 @@ tag: python
 !pip install lenskit
 !pip install -U numba
 ```
-
-    Collecting lenskit
-      Downloading lenskit-0.8.4.zip (79 kB)
-    [K     |████████████████████████████████| 79 kB 296 kB/s eta 0:00:011
-    [?25hRequirement already satisfied: pandas>=0.24 in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from lenskit) (0.24.2)
-    Requirement already satisfied: numpy in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from lenskit) (1.16.2)
-    Requirement already satisfied: scipy in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from lenskit) (1.2.1)
-    Requirement already satisfied: numba<0.48,>=0.43 in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from lenskit) (0.43.1)
-    Collecting pyarrow
-      Downloading pyarrow-0.16.0-cp37-cp37m-macosx_10_9_intel.whl (40.5 MB)
-    [K     |████████████████████████████████| 40.5 MB 37 kB/s  eta 0:00:01     |█████████████████▉              | 22.5 MB 2.1 MB/s eta 0:00:09     |█████████████████████████████▉  | 37.7 MB 2.3 MB/s eta 0:00:02     |██████████████████████████████  | 38.1 MB 2.3 MB/s eta 0:00:02
-    [?25hRequirement already satisfied: cffi in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from lenskit) (1.12.2)
-    Requirement already satisfied: joblib in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from lenskit) (0.13.2)
-    Requirement already satisfied: pytz>=2011k in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from pandas>=0.24->lenskit) (2018.9)
-    Requirement already satisfied: python-dateutil>=2.5.0 in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from pandas>=0.24->lenskit) (2.8.0)
-    Requirement already satisfied: llvmlite>=0.28.0dev0 in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from numba<0.48,>=0.43->lenskit) (0.28.0)
-    Requirement already satisfied: six>=1.0.0 in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from pyarrow->lenskit) (1.12.0)
-    Requirement already satisfied: pycparser in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from cffi->lenskit) (2.19)
-    Building wheels for collected packages: lenskit
-      Building wheel for lenskit (setup.py) ... [?25ldone
-    [?25h  Created wheel for lenskit: filename=lenskit-0.8.4-py3-none-any.whl size=74346 sha256=f8715eea1a55516e730feda6acd99c7926ce82c1fbc451ad7a672875e18b76d4
-      Stored in directory: /Users/Dongeun_Min/Library/Caches/pip/wheels/89/12/ce/b72e165030d4a7d39e0ac5ac8331ae97e767074acb1c87a135
-    Successfully built lenskit
-    Installing collected packages: pyarrow, lenskit
-    Successfully installed lenskit-0.8.4 pyarrow-0.16.0
-    Collecting numba
-      Downloading numba-0.48.0-cp37-cp37m-macosx_10_9_x86_64.whl (2.0 MB)
-    [K     |████████████████████████████████| 2.0 MB 227 kB/s eta 0:00:01
-    [?25hRequirement already satisfied, skipping upgrade: setuptools in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from numba) (40.8.0)
-    Requirement already satisfied, skipping upgrade: numpy>=1.15 in /Users/Dongeun_Min/anaconda3/lib/python3.7/site-packages (from numba) (1.16.2)
-    Collecting llvmlite<0.32.0,>=0.31.0dev0
-      Downloading llvmlite-0.31.0-cp37-cp37m-macosx_10_9_x86_64.whl (15.9 MB)
-    [K     |████████████████████████████████| 15.9 MB 15.8 MB/s eta 0:00:01
-    [31mERROR: lenskit 0.8.4 has requirement numba<0.48,>=0.43, but you'll have numba 0.48.0 which is incompatible.[0m
-    [?25hInstalling collected packages: llvmlite, numba
-      Attempting uninstall: llvmlite
-        Found existing installation: llvmlite 0.28.0
-    [31mERROR: Cannot uninstall 'llvmlite'. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall.[0m
 
 
 
@@ -403,6 +365,9 @@ movie_data.head()
 
 
 * data fully joined!
+
+이렇게 불러온 데이터셋은 movies, ratings, tags라는 3개의 csv 파일로 이루어져 있다. movies 데이터는 각 영화의 제목과 장르 column이 있고, ratings 데이터는 user / item / rating / timestamp 4개의 column으로 이루어져 있다. tags 데이터는 유저들이 각 영화에 붙인 tag들이 column으로 정리되어 있는데, 아래에서는 tags 데이터를 사용하지 않지만 자연어처리를 이용하여 추천시스템 구축에 유의미하게 사용될 수 있다. 이러한 방법론은 다음 포스트에서 다룰 것이다.  
+
 
 ## 2. 전처리
 
