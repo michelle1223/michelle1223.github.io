@@ -24,7 +24,7 @@ movie = movie.drop('Unnamed: 0', axis=1)
 movie
 ```
 
-## Tokenization  
+### Tokenization  
 ```python
 from ckonlpy.tag import Twitter
 twitter = Twitter()
@@ -47,7 +47,7 @@ movie['token'] = token
 ```
 이와 같이 토큰화를 끝낸 후 movie 데이터에 token column을 붙여준다.  
 
-## Retrieve train data  
+### Retrieve train data  
 추후 설명할 모델링 과정이 모두 끝난 후 정확도를 산출해보니, 앞서 크롤링한 데이터만을 사용하여 모델을 구축할 경우, 만족스럽지 않은 정확도(약 65%)가 산출됨이 확인되었다. 이는 모델 학습에 쓰이는 훈련 데이터가 부족하기 때문으로 결론을 내려서, 외부에서 train data로 사용할 수 있는 한국어 영화 리뷰 데이터를 불러와서 모델을 학습시키는 데 사용하였다.  
 
 ```python
@@ -58,7 +58,7 @@ train_data = pd.read_csv('ratings_train.txt',sep='\t',error_bad_lines=False)
 ```
 이렇게 불러온 훈련 데이터에서 null 값이 있는지 확인하고, 전처리 및 토큰화를 거친 후 X_train라고 저장하여 사용하였다. 이 데이터의 경우 각 문장의 긍정/부정 여부가 label로 표시되어 있는데, 이 label column은 이후 y_train으로 저장하여 사용하였다. 그리고 위에서 크롤링하여 모은 데이터는 X_test로 저장하여 쓰였다.   
 
-## 정수 인코딩  
+### 정수 인코딩  
 토큰화된 데이터를 모델에 돌리기 위해서는 keras에서 제공하는 Tokenizer, pad_sequences 함수를 이용하여 정수로 이루어진 벡터로 바꿔줘야 한다. 이 과정을 정수 인코딩이라고 한다.  
 
 ```python
@@ -78,5 +78,44 @@ X_test = pad_sequences(X_test, maxlen=max_len)
 y_train = np.array(train_data['label'])
 ```
 
+### Modeling  
+모델링은 LSTM으로 진행하였다. LSTM은 자연어처리에서 자주 쓰이는 모델로, RNN을 한 단계 발전시켜 단점을 보완한 모델이다.
+모델에 대한 설명:  
+1. 긍정/부정의 이진 분류를 수행하기 위해 시그모이드 함수와 binary_crossentropy 사용  
+2. 에포크 4회 수행  
+3. train data의 20%를 검증 데이터로 사용하여 모델의 정확도 계산  
+4. 최종 정확도: 88.32%  
 
-**미완**  
+```python
+from tensorflow.keras.layers import Embedding, Dense, LSTM
+from tensorflow.keras.models import Sequential
+
+model = Sequential()
+model.add(Embedding(max_words, 100))
+model.add(LSTM(128))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['acc'])
+history = model.fit(X_train, y_train, epochs=4, batch_size=60, validation_split=0.2)
+```
+
+### Calculate accuracy  
+movie 데이터에 'label' column을 추가해서, 이 column을 y_test라 이름 짓고 정확도를 산출한 것이다.  
+이렇게 한 이유는, 모델이 판단한 긍정/부정 여부와 평점을 토대로 한 긍정/부정 여부를 비교하기 위함이다. 이때, 대부분의 평점들이 다소 상향 평준화되어 있기 때문에 "1~5점 부정 / 6~10점 긍정"으로 판단하지 않고, 6점 이하부터 부정적 리뷰라고 설정하였다.  
+
+```python
+movie['label'] = ""
+#row index number를 초기화하지 않으면 겹치는 index number가 10개씩 생김.(10개의 df를 concat했기 때문)
+movie.reset_index(drop=True, inplace=True)
+
+#평점 5점, 6점, 7점 리뷰를 비교한 후 평점 6점 이하의 리뷰를 부정 리뷰라고 정의함. (점수의 상향평준화 때문)
+for i in range(0,10000):
+    if movie.loc[i,'score'] > 6 :
+        movie.loc[i,'label'] = 1
+    else: movie.loc[i,'label'] = 0
+
+y_test = np.array(movie['label'])
+print("\n 테스트 정확도: %.4f" % (model.evaluate(X_test, y_test)[1]))
+```
+
+이렇게 정확도를 산출한 결과, 85.65% 의 정확도가 나왔다.  
+정확도를 높이기 위해서는, LSTM대신 ELMo 모델을 사용하는 것도 방법이다. ELMo 모델의 경우, 에포크를 1회만 수행해도 80%라는 꽤 높은 정확도가 나온다. ELMo나 BERT 등 다른 최신 모델을 사용했을 때의 결과도 이후 추가하여 결과를 비교해보겠다.  
