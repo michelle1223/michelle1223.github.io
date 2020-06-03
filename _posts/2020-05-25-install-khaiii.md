@@ -11,25 +11,27 @@ khaiii: 카카오에서 개발한 형태소 분석기. 흔히 konlpy 라이브�
 ## 1. Install Xcode  
 khaiii 설치 과정에서 cmake을 사용해야 하는데, 이때 맥의 경우 이런 에러가 나온다.  
 
-'''python
+```python
 xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun  
-'''
+```
 
 이건 hunter나 cmake의 문제가 아니라 맥 자체의 developer path 지정의 문제인 것 같다.  
-'''python
+
+```python
 xcode-select --install
-'''
+```
+
 이 코드를 터미널에 입력해서 해결해주자.  
 
 
 ## 2. Clone khaiii  
-'''python
+```python
 git clone https://github.com/kakao/khaiii.git
-'''
+```
 
 ## 3. Install & bind with python
 
-'''python
+```python
 cd khaiii  #khaiii 폴더로 이동 (cd = change directory)
 mkdir build  #khaiii폴더 아래에 build 폴더 만들기 (mkdir = make directory)
 cd build  #build 폴더로 이동
@@ -40,4 +42,4 @@ sudo make install  #khaiii (드디어) 설치
 sudo make package_python  #python과 바인딩
 cd package_python
 sudo pip3 install . #마지막 점 찍는 것 주의! 약 5분 소요.
-'''
+```
