@@ -23,6 +23,7 @@ xcode-select --install
 
 이 코드를 터미널에 입력해서 해결해주자.  
 
+* Update: 새 맥북에서는 이 문제가 나타나지 않았다. (2020 MacBook Air) 구형 맥북에서 주로 나타나는 문제인 것 같다.
 
 ## 2. Clone khaiii  
 ```python
@@ -35,11 +36,14 @@ git clone https://github.com/kakao/khaiii.git
 cd khaiii  #khaiii 폴더로 이동 (cd = change directory)
 mkdir build  #khaiii폴더 아래에 build 폴더 만들기 (mkdir = make directory)
 cd build  #build 폴더로 이동
-sudo cmake ..  #약 10분 소요
-sudo make all  #빌드 실행. 약 5분 소요
-sudo make resource  #리소스 빌드
-sudo make install  #khaiii (드디어) 설치
-sudo make package_python  #python과 바인딩
+cmake ..  #약 10분 소요
+make all  #빌드 실행. 약 5분 소요
+make resource  #리소스 빌드
+./bin/khaiii --rsc-dir=./share/khaiii  #테스트하고자 하는 문장을 입력하고 테스트 해보기
+ctest  #정상 작동 여부 확인
+make package_python  #python과 바인딩
 cd package_python
-sudo pip3 install . #마지막 점 찍는 것 주의! 약 5분 소요.
+pip3 install . #마지막 점 찍는 것 주의! 약 5분 소요.
 ```
+
+* Update: 여기서, ctest와 make package_python 사이에 make install 을 입력하라고 써있는 글들이 다수 있다. 맥의 경우 그 코드가 없어도 된다. 
